@@ -11,9 +11,6 @@ PROJECT_DIR="项目存放路径"
 # Python解释器路径 (请修改为你的实际路径，建议使用虚拟环境的python)
 PYTHON_PATH="/path/to/your/python"
 
-# 设置翻译目标语言 (可选: zh-CN, zh-TW, en, ja, ko)
-export TARGET_LANGUAGE="zh-CN"
-
 # 是否自动打开浏览器 (true/false)
 AUTO_OPEN_BROWSER=true
 
