@@ -10,7 +10,11 @@
 - 💰 **价值评估**: 自动评估新闻的商业/投资价值
 - 👨‍💻 **开发者视角**: 专门分析技术新闻对独立开发者的实际影响
 - � **自动报告**: 生成精美的 HTML 和 Markdown 格式日报，并自动在浏览器打开
-- ⏰ **定时任务**: 提供 macOS LaunchAgent 和 Linux Crontab 两种定时运行方案
+- ⏰ **定时任务**: 提供 Crontab 定时运行方案
+
+## 效果截图
+
+![效果截图](Screenshot.png)
 
 ## 📂 文件结构
 
@@ -34,8 +38,8 @@
 ### 1. 克隆项目与安装依赖
 
 ```bash
-git clone <your-repo-url>
-cd daily-news-brief
+git clone https://github.com/nocmt/dailynews.git
+cd dailynews
 pip install -r requirements.txt
 ```
 
