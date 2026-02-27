@@ -1,0 +1,40 @@
+#!/bin/bash
+# 每日新闻简报定时任务模板
+# 使用说明:
+# 1. 复制此文件为 run_daily.sh: cp run_daily.sh.example run_daily.sh
+# 2. 修改下方的 PROJECT_DIR 和 PYTHON_PATH 为你的实际路径
+# 3. 给予执行权限: chmod +x run_daily.sh
+
+# 项目目录 (请修改为你的实际路径)
+PROJECT_DIR="项目存放路径"
+
+# Python解释器路径 (请修改为你的实际路径，建议使用虚拟环境的python)
+PYTHON_PATH="/path/to/your/python"
+
+# 设置翻译目标语言 (可选: zh-CN, zh-TW, en, ja, ko)
+export TARGET_LANGUAGE="zh-CN"
+
+# 是否自动打开浏览器 (true/false)
+AUTO_OPEN_BROWSER=true
+
+# 进入项目目录
+cd "$PROJECT_DIR" || exit
+
+# 创建日志目录
+mkdir -p ./logs
+
+# 运行Python脚本并获取输出
+OUTPUT=$($PYTHON_PATH main.py 2>&1)
+
+# 打印输出
+echo "$OUTPUT"
+
+# 提取HTML报告路径
+REPORT_PATH=$(echo "$OUTPUT" | grep "生成的HTML报告" | awk '{print $NF}')
+
+# 自动打开浏览器
+if [ "$AUTO_OPEN_BROWSER" = "true" ] && [ -n "$REPORT_PATH" ]; then
+    echo ""
+    echo "正在打开浏览器..."
+    open "$REPORT_PATH"
+fi
