@@ -300,33 +300,6 @@
             </div>
         </div>
 
-        <!-- 功能特色 -->
-        <!-- <div class="features">
-            <h2>✨ 系统功能</h2>
-            <div class="feature-list">
-                <div class="feature-item">
-                    <div class="feature-icon">🚀</div>
-                    <div class="feature-title">多源聚合</div>
-                    <div class="feature-desc">30+ 权威媒体源，涵盖科技、科学、社会、国际</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🤖</div>
-                    <div class="feature-title">AI 智能分析</div>
-                    <div class="feature-desc">智谱 GLM-4-Flash 深度分析，提取核心要点</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">💰</div>
-                    <div class="feature-title">价值评估</div>
-                    <div class="feature-desc">自动评估新闻的商业价值和投资建议</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">👨‍💻</div>
-                    <div class="feature-title">开发者视角</div>
-                    <div class="feature-desc">专门分析技术新闻对开发者的实际影响</div>
-                </div>
-            </div>
-        </div> -->
-
         <!-- 报告网格 -->
         <div class="reports-grid" id="reports-container">
             <!-- 报告列表将由 JavaScript 动态生成 -->
@@ -335,7 +308,7 @@
         <!-- 页脚 -->
         <div class="footer">
             <p>📊 系统每日 10:00 自动更新 | 🚀 基于 Python + AI 技术</p>
-            <p>⭐ 欢迎在 <a style="color: var(--text-muted);color: var(--text-primary);" href="https://github.com/nocmt/dailynews" target="_blank">GitHub</a> 上 star 这个项目！</p>
+            <p>⭐ 欢迎在 GitHub 上 star 这个项目！</p>
         </div>
     </div>
 
@@ -343,30 +316,14 @@
         // 动态加载报告列表
         async function loadReports() {
             try {
-                // 获取 reports 目录下的文件列表
-                const response = await fetch('./reports/');
-                const text = await response.text();
-                
-                // 解析 HTML 获取文件列表
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(text, 'text/html');
-                const links = doc.querySelectorAll('a[href$=".html"]');
-                
-                const reports = [];
-                links.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href && href.includes('news_report_')) {
-                        const dateMatch = href.match(/news_report_(\d{4}-\d{2}-\d{2})\.html/);
-                        if (dateMatch) {
-                            reports.push({
-                                date: dateMatch[1],
-                                htmlUrl: `./reports/${href}`,
-                                mdUrl: `./reports/${href.replace('.html', '.md')}`,
-                                jsonUrl: `./reports/${href.replace('.html', '.json')}`
-                            });
-                        }
-                    }
-                });
+                // 获取 data.json 文件（添加时间戳防缓存）
+                const now = new Date();
+                const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+                const response = await fetch(`./data.json?t=${dateStr}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const reports = await response.json();
                 
                 // 按日期倒序排序
                 reports.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -409,7 +366,7 @@
                 document.getElementById('reports-container').innerHTML = `
                     <div class="report-card" style="grid-column: 1 / -1; text-align: center;">
                         <div class="report-date">❌ 加载失败</div>
-                        <p class="report-summary">无法加载报告列表，请检查网络连接</p>
+                        <p class="report-summary">无法加载报告列表，请检查网络连接或稍后重试</p>
                     </div>
                 `;
             }

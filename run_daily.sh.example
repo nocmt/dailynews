@@ -26,6 +26,16 @@ echo "$OUTPUT"
 # 提取HTML报告路径
 REPORT_PATH=$(echo "$OUTPUT" | grep "生成的HTML报告" | awk '{print $NF}')
 
+# 更新 data.json (新增步骤)
+echo ""
+echo "🔄 正在更新 docs/data.json..."
+$PYTHON_PATH update_data_json.py
+if [ $? -eq 0 ]; then
+    echo "✅ data.json 更新成功"
+else
+    echo "❌ data.json 更新失败"
+fi
+
 # 自动打开浏览器
 if [ "$AUTO_OPEN_BROWSER" = "true" ] && [ -n "$REPORT_PATH" ]; then
     echo ""
