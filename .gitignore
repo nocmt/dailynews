@@ -19,8 +19,8 @@ crontab.txt
 
 # 日志与输出
 logs/
-web/reports/*.json
-web/reports/*.md
+docs/reports/*.json
+docs/reports/*.md
 *.log
 
 # IDE配置

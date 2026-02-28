@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📰 每日新闻简报 - AI 驱动的新闻聚合与分析</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-paper: #FAFAF9;
+            --text-primary: #18181B;
+            --text-secondary: #52525B;
+            --text-muted: #A1A1AA;
+            --accent-tech: #2563EB;
+            --accent-science: #7C3AED;
+            --accent-society: #DC2626;
+            --accent-international: #059669;
+            --border-light: #E4E4E7;
+            --card-bg: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-paper);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 杂志头版 */
+        .masthead {
+            padding: 60px 0 40px;
+            border-bottom: 3px solid var(--text-primary);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .masthead-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(36px, 8vw, 64px);
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .masthead-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+        
+        /* 统计栏 */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-num {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        
+        /* 报告网格 */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+        
+        .report-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            padding: 28px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .report-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--text-primary);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+        }
+        
+        .report-date {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .report-date::before {
+            content: "📅";
+            font-size: 18px;
+        }
+        
+        .report-summary {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .report-links {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: var(--text-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid var(--text-primary);
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--text-primary);
+        }
+        
+        .btn.secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+        
+        .btn.secondary:hover {
+            background: var(--text-primary);
+            color: white;
+        }
+        
+        /* 功能特色 */
+        .features {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .features h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        .feature-item {
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        
+        .feature-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-light);
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .masthead {
+                padding: 40px 0 30px;
+            }
+            
+            .masthead-title {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                gap: 24px;
+                padding: 24px;
+            }
+            
+            .reports-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .report-links {
+                flex-direction: column;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 杂志头版 -->
+        <div class="masthead">
+            <h1 class="masthead-title">每日新闻简报</h1>
+            <p class="masthead-subtitle">AI 驱动的新闻聚合与分析系统</p>
+        </div>
+
+        <!-- 统计栏 -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-num" id="total-reports">0</div>
+                <div class="stat-label">累计报告</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" id="latest-date">-</div>
+                <div class="stat-label">最新报告</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">30+</div>
+                <div class="stat-label">媒体源</div>
+            </div>
+        </div>
+
+        <!-- 功能特色 -->
+        <div class="features">
+            <h2>✨ 系统功能</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-title">多源聚合</div>
+                    <div class="feature-desc">30+ 权威媒体源，涵盖科技、科学、社会、国际</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-title">AI 智能分析</div>
+                    <div class="feature-desc">智谱 GLM-4-Flash 深度分析，提取核心要点</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-title">价值评估</div>
+                    <div class="feature-desc">自动评估新闻的商业价值和投资建议</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👨‍💻</div>
+                    <div class="feature-title">开发者视角</div>
+                    <div class="feature-desc">专门分析技术新闻对开发者的实际影响</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 报告网格 -->
+        <div class="reports-grid" id="reports-container">
+            <!-- 报告列表将由 JavaScript 动态生成 -->
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>📊 系统每日 10:00 自动更新 | 🚀 基于 Python + AI 技术</p>
+            <p>⭐ 欢迎在 GitHub 上 star 这个项目！</p>
+        </div>
+    </div>
+
+    <script>
+        // 动态加载报告列表
+        async function loadReports() {
+            try {
+                // 获取 reports 目录下的文件列表
+                const response = await fetch('./reports/');
+                const text = await response.text();
+                
+                // 解析 HTML 获取文件列表
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const links = doc.querySelectorAll('a[href$=".html"]');
+                
+                const reports = [];
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && href.includes('news_report_')) {
+                        const dateMatch = href.match(/news_report_(\d{4}-\d{2}-\d{2})\.html/);
+                        if (dateMatch) {
+                            reports.push({
+                                date: dateMatch[1],
+                                htmlUrl: `./reports/${href}`,
+                                mdUrl: `./reports/${href.replace('.html', '.md')}`,
+                                jsonUrl: `./reports/${href.replace('.html', '.json')}`
+                            });
+                        }
+                    }
+                });
+                
+                // 按日期倒序排序
+                reports.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // 更新统计数据
+                document.getElementById('total-reports').textContent = reports.length;
+                if (reports.length > 0) {
+                    document.getElementById('latest-date').textContent = reports[0].date;
+                }
+                
+                // 渲染报告列表
+                const container = document.getElementById('reports-container');
+                if (reports.length === 0) {
+                    container.innerHTML = `
+                        <div class="report-card" style="grid-column: 1 / -1; text-align: center;">
+                            <div class="report-date">📋 暂无报告</div>
+                            <p class="report-summary">系统将在每天 10:00 自动生成第一份报告</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = reports.map(report => `
+                    <div class="report-card">
+                        <div class="report-date">${report.date}</div>
+                        <p class="report-summary">每日新闻简报 - AI 分析与深度总结</p>
+                        <div class="report-links">
+                            <a href="${report.htmlUrl}" class="btn" target="_blank">
+                                📖 阅读报告
+                            </a>
+                            <a href="${report.mdUrl}" class="btn secondary" download>
+                                📄 下载 Markdown
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('加载报告列表失败:', error);
+                document.getElementById('reports-container').innerHTML = `
+                    <div class="report-card" style="grid-column: 1 / -1; text-align: center;">
+                        <div class="report-date">❌ 加载失败</div>
+                        <p class="report-summary">无法加载报告列表，请检查网络连接</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // 页面加载时获取报告列表
+        document.addEventListener('DOMContentLoaded', loadReports);
+    </script>
+</body>
+</html>

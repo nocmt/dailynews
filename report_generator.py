@@ -901,7 +901,7 @@ class ReportGenerator:
         """保存报告到文件"""
         
         if output_dir is None:
-            output_dir = os.path.join(os.path.dirname(__file__), 'web', 'reports')
+            output_dir = os.path.join(os.path.dirname(__file__), 'docs', 'reports')
         
         # 确保目录存在
         os.makedirs(output_dir, exist_ok=True)
