@@ -2,11 +2,8 @@
 # 每日新闻简报定时任务模板
 # 使用说明:
 # 1. 复制此文件为 run_daily.sh: cp run_daily.sh.example run_daily.sh
-# 2. 修改下方的 PROJECT_DIR 和 PYTHON_PATH 为你的实际路径
+# 2. 修改下方的 PYTHON_PATH 为你的实际路径
 # 3. 给予执行权限: chmod +x run_daily.sh
-
-# 项目目录 (请修改为你的实际路径)
-PROJECT_DIR="项目存放路径"
 
 # Python解释器路径 (请修改为你的实际路径，建议使用虚拟环境的python)
 PYTHON_PATH="/path/to/your/python"
