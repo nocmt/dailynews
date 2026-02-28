@@ -33,7 +33,6 @@ NEWS_SOURCES = {
       "https://www.zdnet.com/news/rss.xml",
       "https://www.cnet.com/rss/news/",
       "https://www.leiphone.com/feed",
-      "https://tech.meituan.com/feed/",
       "https://feeds.arstechnica.com/arstechnica/index",
       "https://www.engadget.com/rss.xml",
       "https://www.producthunt.com/feed"

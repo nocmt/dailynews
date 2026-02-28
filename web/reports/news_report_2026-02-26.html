@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日重点新闻简报 - 2026-02-26</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-paper: #FAFAF9;
+            --text-primary: #18181B;
+            --text-secondary: #52525B;
+            --text-muted: #A1A1AA;
+            --accent-tech: #2563EB;
+            --accent-science: #7C3AED;
+            --accent-society: #DC2626;
+            --accent-international: #059669;
+            --fund-buy: #059669;
+            --fund-sell: #DC2626;
+            --fund-hold: #F59E0B;
+            --border-light: #E4E4E7;
+            --card-bg: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-paper);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 杂志头版 */
+        .masthead {
+            padding: 40px 0 30px;
+            border-bottom: 3px solid var(--text-primary);
+            margin-bottom: 40px;
+        }
+        
+        .masthead-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        
+        .masthead-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(32px, 6vw, 56px);
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 8px;
+            color: var(--text-primary);
+        }
+        
+        .masthead-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            letter-spacing: 2px;
+        }
+        
+        /* 分类导航 */
+        .category-nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .category-btn {
+            padding: 10px 24px;
+            border: 1px solid var(--border-light);
+            background: var(--card-bg);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .category-btn:hover {
+            border-color: var(--text-primary);
+        }
+        
+        .category-btn.active {
+            background: var(--text-primary);
+            color: white;
+            border-color: var(--text-primary);
+        }
+        
+        .category-btn[data-cat="tech"].active { background: var(--accent-tech); border-color: var(--accent-tech); }
+        .category-btn[data-cat="science"].active { background: var(--accent-science); border-color: var(--accent-science); }
+        .category-btn[data-cat="society"].active { background: var(--accent-society); border-color: var(--accent-society); }
+        .category-btn[data-cat="international"].active { background: var(--accent-international); border-color: var(--accent-international); }
+        
+        /* 统计栏 */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-num {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        
+        /* 新闻卡片网格 */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text-primary);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+        
+        .news-card.hidden {
+            display: none;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .category-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            color: white;
+        }
+        
+        .category-tag.tech { background: var(--accent-tech); }
+        .category-tag.science { background: var(--accent-science); }
+        .category-tag.society { background: var(--accent-society); }
+        .category-tag.international { background: var(--accent-international); }
+        
+        .relevance-score {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--bg-paper);
+            padding: 3px 8px;
+            border-radius: 2px;
+        }
+        
+        .card-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .core-point {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            background: var(--bg-paper);
+            border-left: 3px solid var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+        
+        .insight-section {
+            margin-top: auto;
+        }
+        
+        .insight-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .insight-box {
+            flex: 1;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .insight-box.fund {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border: 1px solid #A7F3D0;
+        }
+        
+        .insight-box.fund.sell {
+            background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+            border: 1px solid #FECACA;
+        }
+        
+        .insight-box.fund.hold {
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border: 1px solid #FDE68A;
+        }
+        
+        .insight-box.dev {
+            background: #F4F4F5;
+            border: 1px solid var(--border-light);
+        }
+        
+        .insight-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+        
+        .insight-content {
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .keyword {
+            font-size: 11px;
+            padding: 3px 8px;
+            background: var(--bg-paper);
+            color: var(--text-secondary);
+            border-radius: 2px;
+        }
+        
+        .source-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .source-link:hover {
+            color: var(--accent-tech);
+        }
+        
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .disclaimer {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            padding: 16px;
+            background: #FEF3C7;
+            border: 1px solid #FDE68A;
+            font-size: 12px;
+            color: #92400E;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .masthead-title {
+                letter-spacing: 4px;
+            }
+            
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .insight-row {
+                flex-direction: column;
+            }
+        }
+        
+        /* 打印样式 */
+        @media print {
+            .category-nav { display: none; }
+            .news-card { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-top">
+                <span>2026-02-26</span>
+                <span>每日更新</span>
+            </div>
+            <h1 class="masthead-title">每日简报</h1>
+            <p class="masthead-subtitle">科技 · 科学 · 社会 · 国际</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 分类导航 -->
+        <nav class="category-nav">
+            <button class="category-btn active" data-cat="all" onclick="filterNews('all')">全部</button>
+            <button class="category-btn" data-cat="tech" onclick="filterNews('tech')">🚀 科技</button>
+            <button class="category-btn" data-cat="science" onclick="filterNews('science')">🔬 科学</button>
+            <button class="category-btn" data-cat="society" onclick="filterNews('society')">🏛️ 社会</button>
+            <button class="category-btn" data-cat="international" onclick="filterNews('international')">🌍 国际</button>
+        </nav>
+        
+        <!-- 统计 -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-num">1</div>
+                <div class="stat-label">科技</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">0</div>
+                <div class="stat-label">科学</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">25</div>
+                <div class="stat-label">社会</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">0</div>
+                <div class="stat-label">国际</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">26</div>
+                <div class="stat-label">总计</div>
+            </div>
+        </div>
+        
+        <!-- 新闻列表 -->
+        <div class="news-grid">
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">在 AI 的帮助下，给自己建了个数字人生档案馆</h2>
+                <div class="core-point">在 AI 的帮助下，给自己建了个数字人生档案馆</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/106401" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">出门在外也能远程 CLI Coding：我的 SSH 远程开发方案分享</h2>
+                <div class="core-point">出门在外也能远程 CLI Coding：我的 SSH 远程开</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/105621" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">派早报：五角大楼对 Anthropic 下达最后通牒、松下外包电视业务</h2>
+                <div class="core-point">派早报：五角大楼对 Anthropic 下达最后通牒、松下外</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/106568" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">社区速递 130 | 演唱会摄影利器体验、几十块钱的旅行「安全感」</h2>
+                <div class="core-point">社区速递 130 | 演唱会摄影利器体验、几十块钱的旅行「安</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/106547" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">具透 Plus：Obsidian 有了命令行界面，Android 17 Beta 真的在「战未来」了</h2>
+                <div class="core-point">具透 Plus：Obsidian 有了命令行界面，Andro</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/prime/story/inside-release-notes-260226" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">REDMI Buds 8 Pro 降噪真无线耳机体验 - TDS REVIEW</h2>
+                <div class="core-point">REDMI Buds 8 Pro 降噪真无线耳机体验 - T</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/106521" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">2025年育儿手记：从家到幼儿园</h2>
+                <div class="core-point">2025年育儿手记：从家到幼儿园</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/106488" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">深度横评：2026 年，AI 生成 PPT 到底进化到什么程度了？</h2>
+                <div class="core-point">深度横评：2026 年，AI 生成 PPT 到底进化到什么程</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/105484" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">市场监管总局重磅新规：外卖须增设显著“无堂食”专项标识，6 月实施</h2>
+                <div class="core-point">市场监管总局重磅新规：外卖须增设显著“无堂食”专项标识，6 </div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/994.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">存储成本飞升 + 云端 AI 算力提升等，荣耀林林称可能所有 3C 设备的形态和使用方式都要发生巨变</h2>
+                <div class="core-point">存储成本飞升 + 云端 AI 算力提升等，荣耀林林称可能所有</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/991.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">消息称因内存芯片价格持续暴涨，2026 年春节后手机平板等全行业将迎来涨价</h2>
+                <div class="core-point">消息称因内存芯片价格持续暴涨，2026 年春节后手机平板等全</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/990.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="tech">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">Instagram now alerts parents if their teen searches for suicide or self-harm content</h2>
+                <div class="core-point">Instagram now alerts parents i</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://techcrunch.com/2026/02/26/instagram-now-alerts-parents-if-their-teen-searches-for-suicide-or-self-harm-content/" class="source-link" target="_blank">
+                🔗 TechCrunch
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">德国总理默茨体验新一代奔驰 S 级及中德合作辅助驾驶：伟大的汽车，伟大的技术</h2>
+                <div class="core-point">德国总理默茨体验新一代奔驰 S 级及中德合作辅助驾驶：伟大的</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/989.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">德国总理默茨参访宇树科技观看春晚同款“武 BOT”，机器人现场大秀拳击、舞蹈</h2>
+                <div class="core-point">德国总理默茨参访宇树科技观看春晚同款“武 BOT”，机器人现</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/988.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">上海发放 2026 年首批汽车消费券，消费者购车最高可获 3000 元现金优惠</h2>
+                <div class="core-point">上海发放 2026 年首批汽车消费券，消费者购车最高可获 3</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/987.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">HKC 推出“战狼 V5”23.8 英寸显示器：1080P 180Hz，499 元</h2>
+                <div class="core-point">HKC 推出“战狼 V5”23.8 英寸显示器：1080P </div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/986.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">再谈 .DS_Store：兼论 Windows 与 macOS Finder 的布局理念差异</h2>
+                <div class="core-point">再谈 .DS_Store：兼论 Windows 与 macO</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/prime/story/on-dsstore" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">机械革命 2026 款耀世 16 Pro 游戏本预售：i7-14650HX + RTX5060，8699 元</h2>
+                <div class="core-point">机械革命 2026 款耀世 16 Pro 游戏本预售：i7-</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/985.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">嘉年华、福克斯等车型相继停产后，福特确认将重回传统乘用车市场</h2>
+                <div class="core-point">嘉年华、福克斯等车型相继停产后，福特确认将重回传统乘用车市场</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/983.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">不愧三星：S26 Ultra 手机首发直降 1300 元立打 8.88 折，京东国补开启</h2>
+                <div class="core-point">不愧三星：S26 Ultra 手机首发直降 1300 元立打</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/982.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">酷比魔方掌玩 mini 4 Ultra 平板电脑下月发布：搭 8.8 英寸 2.5K 144Hz 京东方 LCD 面板，支持旁路充电</h2>
+                <div class="core-point">酷比魔方掌玩 mini 4 Ultra 平板电脑下月发布：搭</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/981.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">Nothing Headphone (a) 头戴式耳机官宣 3 月 5 日发布：预计配 40mm 单元，定价 159 欧元</h2>
+                <div class="core-point">Nothing Headphone (a) 头戴式耳机官宣 </div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/980.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">Sonos 2026 年将再度改版移动应用程序：关注用户反馈，简化使用操作</h2>
+                <div class="core-point">Sonos 2026 年将再度改版移动应用程序：关注用户反馈</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/978.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">为求得 LPDDR5X 内存稳定供应，消息称苹果接受三星涨价 100% 方案</h2>
+                <div class="core-point">为求得 LPDDR5X 内存稳定供应，消息称苹果接受三星涨价</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/977.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">墨案迷你阅 Ultra 彩色墨水屏阅读器发布：手机造型、145g 重量，2399 元</h2>
+                <div class="core-point">墨案迷你阅 Ultra 彩色墨水屏阅读器发布：手机造型、14</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://www.ithome.com/0/923/976.htm" class="source-link" target="_blank">
+                🔗 IT之家
+            </a>
+            </article>
+
+            <article class="news-card" data-category="society">
+                <div class="card-header">
+                    <span class="category-tag society">社会</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">派早报：三星发布 S26 系列手机、Anthropic 的新动态等</h2>
+                <div class="core-point">派早报：三星发布 S26 系列手机、Anthropic 的新</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">需人工分析</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">请查看原始新闻</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <a href="https://sspai.com/post/106602" class="source-link" target="_blank">
+                🔗 少数派
+            </a>
+            </article>
+
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="disclaimer">
+            ⚠️ 免责声明：本简报内容仅供参考，不构成任何投资建议。基金投资有风险，请谨慎决策。
+        </div>
+        <p>由 AI 自动生成 · 每日 10:00 更新</p>
+    </footer>
+    
+    <script>
+        function filterNews(category) {
+            // 更新按钮状态
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.cat === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // 过滤新闻卡片
+            document.querySelectorAll('.news-card').forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    if (card.dataset.category === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

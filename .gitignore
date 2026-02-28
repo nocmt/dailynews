@@ -19,9 +19,11 @@ crontab.txt
 
 # 日志与输出
 logs/
-reports/
+web/reports/*.json
+web/reports/*.md
 *.log
 
 # IDE配置
 .vscode/
 .idea/
+git_auto_commit.sh

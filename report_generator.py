@@ -901,7 +901,7 @@ class ReportGenerator:
         """保存报告到文件"""
         
         if output_dir is None:
-            output_dir = os.path.join(os.path.dirname(__file__), 'reports')
+            output_dir = os.path.join(os.path.dirname(__file__), 'web', 'reports')
         
         # 确保目录存在
         os.makedirs(output_dir, exist_ok=True)
@@ -942,30 +942,9 @@ class ReportGenerator:
         return md_filepath, html_filepath
 
 
-if __name__ == '__main__':
-    # 测试代码
-    test_news = [
-        {
-            'title': 'OpenAI发布GPT-5新模型',
-            'link': 'https://openai.com',
-            'source': 'TechCrunch',
-            'category': 'tech',
-            'core_point': 'GPT-5具备更强推理能力',
-            'fund_signal': '买入AI主题基金',
-            'fund_details': 'AI技术突破将带动相关产业发展',
-            'dev_impact': '新API可能改变开发者工作方式',
-            'relevance_score': 9,
-            'key_words': ['AI', 'GPT-5', 'OpenAI'],
-            'relevance': '科技、金融',
-            'impact_level': '高-可能引发行业格局重大改变',
-            'timeliness': '新鲜-刚发布24小时内',
-            'certainty': '高-来源权威且事实明确',
-            'opportunity_type': '创业机会-新赛道机会'
-        },
-    ]
-    
-    generator = ReportGenerator()
-    md_path, html_path = generator.save_report(test_news)
-    print(f"报告已生成:")
-    print(f"- Markdown: {md_path}")
-    print(f"- HTML: {html_path}")
+# if __name__ == '__main__':
+#     generator = ReportGenerator()
+#     md_path, html_path = generator.save_report()
+#     print(f"报告已生成:")
+#     print(f"- Markdown: {md_path}")
+#     print(f"- HTML: {html_path}")
