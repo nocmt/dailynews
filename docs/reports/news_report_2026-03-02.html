@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日重点新闻简报 - 2026-03-02</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-paper: #FAFAF9;
+            --text-primary: #18181B;
+            --text-secondary: #52525B;
+            --text-muted: #A1A1AA;
+            --accent-tech: #2563EB;
+            --accent-science: #7C3AED;
+            --accent-society: #DC2626;
+            --accent-international: #059669;
+            --fund-buy: #059669;
+            --fund-sell: #DC2626;
+            --fund-hold: #F59E0B;
+            --border-light: #E4E4E7;
+            --card-bg: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-paper);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 杂志头版 */
+        .masthead {
+            padding: 40px 0 30px;
+            border-bottom: 3px solid var(--text-primary);
+            margin-bottom: 40px;
+        }
+        
+        .masthead-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        
+        .masthead-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(32px, 6vw, 56px);
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 8px;
+            color: var(--text-primary);
+        }
+        
+        .masthead-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            letter-spacing: 2px;
+        }
+        
+        /* 分类导航 */
+        .category-nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .category-btn {
+            padding: 10px 24px;
+            border: 1px solid var(--border-light);
+            background: var(--card-bg);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .category-btn:hover {
+            border-color: var(--text-primary);
+        }
+        
+        .category-btn.active {
+            background: var(--text-primary);
+            color: white;
+            border-color: var(--text-primary);
+        }
+        
+        .category-btn[data-cat="tech"].active { background: var(--accent-tech); border-color: var(--accent-tech); }
+        .category-btn[data-cat="science"].active { background: var(--accent-science); border-color: var(--accent-science); }
+        .category-btn[data-cat="society"].active { background: var(--accent-society); border-color: var(--accent-society); }
+        .category-btn[data-cat="international"].active { background: var(--accent-international); border-color: var(--accent-international); }
+        
+        /* 统计栏 */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-num {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        
+        /* 新闻卡片网格 */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text-primary);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+        
+        .news-card.hidden {
+            display: none;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .category-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            color: white;
+        }
+        
+        .category-tag.tech { background: var(--accent-tech); }
+        .category-tag.science { background: var(--accent-science); }
+        .category-tag.society { background: var(--accent-society); }
+        .category-tag.international { background: var(--accent-international); }
+        
+        .relevance-score {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--bg-paper);
+            padding: 3px 8px;
+            border-radius: 2px;
+        }
+        
+        .card-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .core-point {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            background: var(--bg-paper);
+            border-left: 3px solid var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+        
+        .insight-section {
+            margin-top: auto;
+        }
+        
+        .insight-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .insight-box {
+            flex: 1;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .insight-box.fund {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border: 1px solid #A7F3D0;
+        }
+        
+        .insight-box.fund.sell {
+            background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+            border: 1px solid #FECACA;
+        }
+        
+        .insight-box.fund.hold {
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border: 1px solid #FDE68A;
+        }
+        
+        .insight-box.dev {
+            background: #F4F4F5;
+            border: 1px solid var(--border-light);
+        }
+        
+        .insight-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+        
+        .insight-content {
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .keyword {
+            font-size: 11px;
+            padding: 3px 8px;
+            background: var(--bg-paper);
+            color: var(--text-secondary);
+            border-radius: 2px;
+        }
+        
+        .source-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .source-link:hover {
+            color: var(--accent-tech);
+        }
+        
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .disclaimer {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            padding: 16px;
+            background: #FEF3C7;
+            border: 1px solid #FDE68A;
+            font-size: 12px;
+            color: #92400E;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .masthead-title {
+                letter-spacing: 4px;
+            }
+            
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .insight-row {
+                flex-direction: column;
+            }
+        }
+        
+        /* 弹窗样式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active { display: flex; }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-paper);
+        }
+        
+        .modal-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+            padding-right: 20px;
+        }
+        
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--bg-paper);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .modal-close:hover { background: var(--text-primary); color: white; }
+        
+        .modal-body { flex: 1; overflow-y: auto; padding: 0; }
+        .modal-body iframe { width: 100%; height: 75vh; border: none; }
+        
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-paper);
+        }
+        
+        .modal-source { font-size: 13px; color: var(--text-muted); }
+        .modal-source a { color: var(--accent-tech); text-decoration: none; }
+        
+        .btn-open-original {
+            padding: 8px 16px;
+            background: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-open-original:hover { background: var(--accent-tech); }
+        
+        /* 增强分析维度样式 */
+        .analysis-dimensions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .dimension-item {
+            font-size: 11px;
+            padding: 6px 8px;
+            background: #F8FAFC;
+            border-radius: 4px;
+            border-left: 2px solid var(--accent-tech);
+        }
+        
+        .dimension-label { font-weight: 600; color: var(--text-secondary); margin-bottom: 2px; }
+        .original-title { font-size: 12px; color: var(--text-muted); font-style: italic; margin-top: 4px; }
+        
+        @media (max-width: 768px) {
+            .modal-content { max-height: 95vh; }
+            .modal-body iframe { height: 60vh; }
+            .analysis-dimensions { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-top">
+                <span>2026-03-02</span>
+                <span>每日更新</span>
+            </div>
+            <h1 class="masthead-title">每日简报</h1>
+            <p class="masthead-subtitle">科技 · 科学 · 社会 · 国际</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 分类导航 -->
+        <nav class="category-nav">
+            <button class="category-btn active" data-cat="all" onclick="filterNews('all')">全部</button>
+            <button class="category-btn" data-cat="tech" onclick="filterNews('tech')">🚀 科技</button>
+            <button class="category-btn" data-cat="science" onclick="filterNews('science')">🔬 科学</button>
+            <button class="category-btn" data-cat="society" onclick="filterNews('society')">🏛️ 社会</button>
+            <button class="category-btn" data-cat="international" onclick="filterNews('international')">🌍 国际</button>
+        </nav>
+        
+        <!-- 统计 -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-num">32</div>
+                <div class="stat-label">科技</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">0</div>
+                <div class="stat-label">科学</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">0</div>
+                <div class="stat-label">社会</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">0</div>
+                <div class="stat-label">国际</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">32</div>
+                <div class="stat-label">总计</div>
+            </div>
+        </div>
+        
+        <!-- 新闻列表 -->
+        <div class="news-grid">
+
+            <article class="news-card" data-category="tech" data-index="0" onclick="openModal(0)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">揭秘长城智驾自研：元戎、Momenta「抬轿」与千人自研团队</h2>
+                
+                <div class="core-point">长城汽车加速自动驾驶自研，整合内外部资源</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为开发者提供更多合作机会，可能带来技术升级和就业机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技, 新赛道</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-行业技术进步，可能引发竞争格局变化</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-消息来源为雷峰网，但具体细节未明确</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-自动驾驶相关技术创业</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">长城汽车</span><span class="keyword">自动驾驶</span><span class="keyword">自研技术</span><span class="keyword">AI</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="1" onclick="openModal(1)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">克莱德在应用商店中攀升至第一，继五角大楼争议之后</h2>
+                <div class="original-title">原文: Anthropic’s Claude rises to No. 1 in the App Store following Pentagon dispute</div>
+                <div class="core-point">Anthropic的聊天机器人Claude因与五角大楼的争议而应用商店排名上升</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">独立开发者可关注AI技术发展，寻找合作机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技, 金融</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能推动AI领域发展</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-新闻刚发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-需关注后续发展</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">Anthropic</span><span class="keyword">Claude</span><span class="keyword">AI</span><span class="keyword">应用商店</span><span class="keyword">五角大楼</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="2" onclick="openModal(2)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">仅补贴3万元？曝36岁程序员复工当晚猝死，米哈游回应；哈啰招聘运营要求「98后，能力强放宽至97后」，客服回应；多家车企回应语音关大灯</h2>
+                
+                <div class="core-point">程序员猝死，车企回应语音关大灯，哈啰招聘，魅族研发暂停，小米汽车，寒武纪盈利，OpenAI融资</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund sell">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金、卖出传统能源ETF</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">程序员健康问题引发关注，AI技术需求增加</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，金融，消费</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>高-可能引发行业格局重大改变</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-刚发布24小时内</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-部分信息来源可能存在不确定性</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>两者皆有-创业机会在AI技术，基金机会在行业轮动</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">程序员</span><span class="keyword">车企</span><span class="keyword">哈啰招聘</span><span class="keyword">魅族</span><span class="keyword">小米汽车</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="3" onclick="openModal(3)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">阿里巴巴AI品牌统一为千问</h2>
+                
+                <div class="core-point">阿里巴巴统一AI品牌为千问，开源多款模型</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可更方便地接入和使用阿里巴巴AI技术</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技、金融</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>高-可能引发行业格局重大改变</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-刚发布24小时内</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来源权威且事实明确</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>基金机会-行业轮动机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">阿里巴巴</span><span class="keyword">AI</span><span class="keyword">千问大模型</span><span class="keyword">开源</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="4" onclick="openModal(4)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">新智驾独家｜蔚来芯片子公司完成首轮融资，投后估值近百亿元</h2>
+                
+                <div class="core-point">蔚来芯片子公司首轮融资近百亿</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为开发者提供更多高性能芯片选择</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技, 金融</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-推动芯片行业发展</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期新闻</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-雷峰网报道</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>基金机会-行业轮动机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">蔚来</span><span class="keyword">芯片</span><span class="keyword">融资</span><span class="keyword">AI</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="5" onclick="openModal(5)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">登上马年春晚的银河通用机器人融资 25 亿元，估值领跑具身智能</h2>
+                
+                <div class="core-point">银河通用机器人获25亿融资，领跑具身智能领域</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">提供更多具身智能开发案例，提升开发者信心</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技, 新赛道</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>高-可能引发行业格局重大改变</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-刚发布24小时内</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来源权威且事实明确</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">银河通用机器人</span><span class="keyword">融资</span><span class="keyword">具身智能</span><span class="keyword">AI</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="6" onclick="openModal(6)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">小米机器人进厂“实习”，在自攻螺母上件工站可连续自主运行 3 小时</h2>
+                
+                <div class="core-point">小米机器人实现汽车工厂自动化装配，成功率90.2%</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可关注机器人编程和自动化解决方案相关技术</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技, 新赛道</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-推动行业自动化升级</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-3月2日发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-官方报道</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">小米</span><span class="keyword">机器人</span><span class="keyword">自动化</span><span class="keyword">汽车工厂</span><span class="keyword">智能制造</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="7" onclick="openModal(7)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">比亚迪：将于 3 月 5 日召开“颠覆性”技术发布会</h2>
+                
+                <div class="core-point">比亚迪3月5日发布颠覆性技术，全新车型续航破千公里</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可关注电动车充电技术发展</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，能源，新赛道</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能推动电动车行业技术升级</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-即将发生</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-部分信息已确认</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-电动车技术升级机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">比亚迪</span><span class="keyword">颠覆性技术</span><span class="keyword">电动车</span><span class="keyword">续航</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="8" onclick="openModal(8)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 8</span>
+                </div>
+                <h2 class="card-title">独家 | 星海图孵化首席科学家许华哲创业，新公司已获得星海图投资</h2>
+                
+                <div class="core-point">星海图首席科学家许华哲创业，新公司获星海图投资</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可关注具身智能技术，寻求合作机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技、金融、新赛道、用户痛点</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>高-可能引发行业格局重大改变</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-刚发布24小时内</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来源权威且事实明确</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">具身智能</span><span class="keyword">创业</span><span class="keyword">星海图</span><span class="keyword">投资</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="9" onclick="openModal(9)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">八位AI算力CEO：2026，算力旧规则正在作废</h2>
+                
+                <div class="core-point">算力旧规则被AI颠覆，行业面临新挑战</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者需关注算力优化和算法协同</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，金融，能源</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-影响算力产业链</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-行业分析，但具体数据未明确</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">AI算力</span><span class="keyword">行业变革</span><span class="keyword">算力挑战</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="10" onclick="openModal(10)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">对话NOOK创始人许清岚：AI 从「做事」走向「规划人生」</h2>
+                
+                <div class="core-point">AI应用从效率提升转向人生规划</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为开发者提供新工具，但需适应新应用场景</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，新赛道，用户痛点</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能影响AI应用开发方向</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-新闻来源为科技媒体</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">AI应用</span><span class="keyword">人生规划</span><span class="keyword">NOOK</span><span class="keyword">开发者</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="11" onclick="openModal(11)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">对话冯雷：从 AI 播客，到真人感 Agent</h2>
+                
+                <div class="core-point">AI播客成为创业新赛道，市场潜力巨大。</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可关注AI播客技术及内容创作。</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技、新赛道、用户痛点</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-有望推动AI技术与应用创新</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-新闻发布不久</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-基于市场趋势及研究报告</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">AI播客</span><span class="keyword">创业机会</span><span class="keyword">市场潜力</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="12" onclick="openModal(12)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">Nano Banana 2 来了：价格便宜速度快，从炫技回到实用</h2>
+                
+                <div class="core-point">谷歌发布新图像模型Nano Banana 2，速度快价格低</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可利用模型加速图像生成，降低成本</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，AI</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能推动图像处理技术发展</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-发布不久</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-信息来源于第三方媒体</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">谷歌</span><span class="keyword">图像模型</span><span class="keyword">Nano Banana 2</span><span class="keyword">速度</span><span class="keyword">价格</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="13" onclick="openModal(13)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">国轩高科：2GWh 全固态电池量产线设计工作已基本完成</h2>
+                
+                <div class="core-point">国轩高科完成2GWh全固态电池量产线设计</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为开发者提供更高能量密度电池选择</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技, 能源</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-推动电池行业技术升级</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-发布3月2日</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来自权威媒体</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">国轩高科</span><span class="keyword">全固态电池</span><span class="keyword">量产线</span><span class="keyword">电池技术</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="14" onclick="openModal(14)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">硅谷投资人比尔 · 格利：不热爱自己工作的人最可能因 AI 失去工作</h2>
+                
+                <div class="core-point">热爱工作者更抗AI冲击</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者需提升技能适应AI变化</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，金融，就业</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-AI技术影响就业市场</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-新闻发布不久</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-观点基于行业观察</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>基金机会-行业轮动机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">AI</span><span class="keyword">就业</span><span class="keyword">科技投资</span><span class="keyword">比尔·格利</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="15" onclick="openModal(15)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">掌阅 iReader Tango 2 Pro 墨水屏阅读器发布：可插 SIM 卡，50 帧高刷</h2>
+                
+                <div class="core-point">掌阅发布新款iReader Tango 2 Pro墨水屏阅读器</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为开发者提供新的产品设计和功能实现参考</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能影响电子阅读器市场</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-3月2日发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来自权威新闻网站</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">掌阅</span><span class="keyword">iReader</span><span class="keyword">墨水屏阅读器</span><span class="keyword">SIM卡</span><span class="keyword">高刷</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="16" onclick="openModal(16)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">国产大飞机 C919 入列南航满十架，通达 17 个航点城市</h2>
+                
+                <div class="core-point">南航C919机队突破十架，覆盖17个城市</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可关注航空领域相关软件和解决方案开发</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技,金融</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-推动航空业技术升级</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-刚发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来源权威</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>基金机会-行业轮动机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">国产大飞机</span><span class="keyword">C919</span><span class="keyword">南航</span><span class="keyword">航空市场</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="17" onclick="openModal(17)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">影石337调查完胜！美国ITC终裁：GoPro六项指控均不成立</h2>
+                
+                <div class="core-point">影石胜诉GoPro，337调查六项指控均不成立</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">影石胜诉有助于全景相机市场发展，独立开发者有更多机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，新赛道，用户痛点</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-对全景相机市场有一定推动作用</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期事件</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来源权威且事实明确</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">影石</span><span class="keyword">GoPro</span><span class="keyword">337调查</span><span class="keyword">全景相机</span><span class="keyword">AI</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="18" onclick="openModal(18)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">对话原力灵机范浩强：评判机器人好坏，只有一个指标</h2>
+                
+                <div class="core-point">原力灵机范浩强谈AI与机器人发展</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入AI主题基金</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为开发者提供更多AI应用场景和商业模式参考</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-推动具身智能行业发展</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-来源权威，但部分内容为推测</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新赛道机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">原力灵机</span><span class="keyword">AI</span><span class="keyword">机器人</span><span class="keyword">旷视</span><span class="keyword">具身智能</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="19" onclick="openModal(19)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 7</span>
+                </div>
+                <h2 class="card-title">扬州爱奇艺乐园新年开门红 龚宇预计单日峰值收入还有1-2倍增长空间</h2>
+                
+                <div class="core-point">爱奇艺乐园开业火爆，盈利能力持续提升</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">买入</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">提供更多IP衍生品开发机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，消费，新赛道</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-乐园业务发展可能带动相关产业链</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-财报发布后</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-财报数据权威</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-IP衍生品开发、基金机会-乐园产业链投资</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">爱奇艺乐园</span><span class="keyword">盈利能力</span><span class="keyword">IP衍生品</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="20" onclick="openModal(20)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 6</span>
+                </div>
+                <h2 class="card-title">万人大厂因AI一夜爆裁4000人，「留下的压力也很大」；网友晒椰树广告图被指低俗：「女员工胸这么大」引争议；SpaceX最早3月秘密申请IPO</h2>
+                
+                <div class="core-point">AI裁员、争议广告、SpaceX申请IPO</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">AI裁员可能影响相关行业开发者就业前景。</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技、金融</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能影响行业就业和投资情绪</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-刚发布24小时内</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-部分信息未证实</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">AI裁员</span><span class="keyword">争议广告</span><span class="keyword">SpaceX IPO</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="21" onclick="openModal(21)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 6</span>
+                </div>
+                <h2 class="card-title">OPPO 陈希预告：Find N6 折叠屏手机窗口交互体验将再次升级</h2>
+                
+                <div class="core-point">OPPO Find N6折叠屏手机交互体验升级</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">可能带来新的开发需求，如适配新交互功能</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能推动折叠屏手机市场发展</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-发布后不久</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-陈希为OPPO设计总监，信息来源较可靠</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新交互功能开发</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">OPPO</span><span class="keyword">Find N6</span><span class="keyword">折叠屏</span><span class="keyword">交互体验</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="22" onclick="openModal(22)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 6</span>
+                </div>
+                <h2 class="card-title">微软 Win11 隐藏新特性：第三方截图工具也能用 Print Screen 键了</h2>
+                
+                <div class="core-point">Win11 允许第三方应用接管 Print Screen 快捷键</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为独立开发者提供更多功能定制机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能影响用户体验和截图工具市场</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-发布不久</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来自权威媒体报道</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>创业机会-新功能开发机会</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">Windows 11</span><span class="keyword">Print Screen</span><span class="keyword">第三方应用</span><span class="keyword">截图工具</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="23" onclick="openModal(23)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">云厂情报大览：宇宙云销售岗备受追捧，甚至还吸引演员加入；A云电销团队大调整；B云效仿友商，给代理商送车</h2>
+                
+                <div class="core-point">云厂商电销团队调整，A云电销并入公共云，宇宙云销售岗位受追捧</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">对独立开发者影响不大，需关注云服务销售策略变化</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-可能影响云服务销售策略</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-信息来源为雷峰网</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">云厂商</span><span class="keyword">电销团队</span><span class="keyword">销售岗位</span><span class="keyword">宇宙云</span><span class="keyword">A云</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="24" onclick="openModal(24)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 5</span>
+                </div>
+                <h2 class="card-title">萝卜快跑：已临时暂停在阿联酋境内的无人驾驶测试及商业化运营服务</h2>
+                
+                <div class="core-point">萝卜快跑暂停阿联酋无人驾驶测试及运营</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">影响独立开发者参与阿联酋无人驾驶项目的机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技, 新赛道</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-影响特定地区无人驾驶商业化</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-3月1日发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来自权威媒体</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">萝卜快跑</span><span class="keyword">无人驾驶</span><span class="keyword">阿联酋</span><span class="keyword">暂停</span><span class="keyword">商业化</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="25" onclick="openModal(25)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 4</span>
+                </div>
+                <h2 class="card-title">独家丨前阿里高管任庚已经从新奥离职</h2>
+                
+                <div class="core-point">前阿里高管任庚离职新奥</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">对独立开发者影响较小</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，金融</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>低-个人离职不影响行业大局</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-近期事件</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-信源未知，需进一步确认</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">阿里高管</span><span class="keyword">离职</span><span class="keyword">新奥</span><span class="keyword">数字化转型</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="26" onclick="openModal(26)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 3</span>
+                </div>
+                <h2 class="card-title">伊朗轰炸相关投注交易额达5.29亿美元</h2>
+                <div class="original-title">原文: Polymarket saw $529M traded on bets tied to bombing of Iran</div>
+                <div class="core-point">伊朗轰炸相关投注交易额达5.29亿美元</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">对独立开发者无直接影响</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，金融</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>低-对市场影响有限</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-刚发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-事件真实性需进一步验证</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">伊朗</span><span class="keyword">轰炸</span><span class="keyword">投注</span><span class="keyword">交易额</span><span class="keyword">科技</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="27" onclick="openModal(27)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 3</span>
+                </div>
+                <h2 class="card-title">2026年我尝试过的最佳激光打印机：兄弟、惠普等</h2>
+                <div class="original-title">原文: Best Laser Printers I've Tried (2026): Brother, HP, and More</div>
+                <div class="core-point">2026年推荐激光打印机，关注兄弟、惠普等品牌</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者可关注激光打印机市场趋势，寻找相关开发机会</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>低-对行业影响较小</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>平稳-非最新新闻</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-来源为知名科技媒体</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">激光打印机</span><span class="keyword">兄弟</span><span class="keyword">惠普</span><span class="keyword">评测</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="28" onclick="openModal(28)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 3</span>
+                </div>
+                <h2 class="card-title">微软官方 Discord 频道封禁网友自造词“Microslop”未果，竟选择大面积“禁言”</h2>
+                
+                <div class="core-point">微软封禁自造词“Microslop”未果，转而大面积禁言</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">不适用</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">开发者面临沟通障碍，需适应新规则</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-影响社交媒体互动</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-3月2日发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-外媒报道，未证实</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">微软</span><span class="keyword">Windows 11</span><span class="keyword">AI整合</span><span class="keyword">Discord</span><span class="keyword">禁言</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="29" onclick="openModal(29)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 3</span>
+                </div>
+                <h2 class="card-title">美团回应中东局势影响：必要时特定区域将暂时限制或停止服务</h2>
+                
+                <div class="core-point">美团因中东局势限制或暂停服务</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">独立开发者需关注美团在中东地区的调整，评估业务影响</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技、金融、地缘政治</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>中-对美团在中东地区业务有影响</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-报道刚发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-信息来自媒体报道</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">美团</span><span class="keyword">中东局势</span><span class="keyword">服务调整</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="30" onclick="openModal(30)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 3</span>
+                </div>
+                <h2 class="card-title">海信 Hi Reader 2026 特别纪念版墨水屏阅读器官宣，配置不变重启发售</h2>
+                
+                <div class="core-point">海信重启Hi Reader 2026特别纪念版墨水屏阅读器</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">为开发者提供更多阅读器选择</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技，消费</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>低-产品更新，影响有限</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-3月2日发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>中-官方消息</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">海信</span><span class="keyword">Hi Reader</span><span class="keyword">墨水屏阅读器</span><span class="keyword">特别纪念版</span>
+            </article>
+
+            <article class="news-card" data-category="tech" data-index="31" onclick="openModal(31)">
+                <div class="card-header">
+                    <span class="category-tag tech">科技</span>
+                    <span class="relevance-score">★ 3</span>
+                </div>
+                <h2 class="card-title">中国空间站“太空小鼠”回地球后，顺利产下第三窝鼠宝宝</h2>
+                
+                <div class="core-point">中国空间站小鼠产下第三窝鼠宝宝</div>
+                
+                <div class="insight-section">
+                    <div class="insight-row">
+                        <div class="insight-box fund hold">
+                            <div class="insight-label">💰 基金建议</div>
+                            <div class="insight-content">观望</div>
+                        </div>
+                        <div class="insight-box dev">
+                            <div class="insight-label">👨‍💻 开发者影响</div>
+                            <div class="insight-content">对独立开发者影响较小，可能激发对太空生物研究的兴趣</div>
+                        </div>
+                    </div>
+                    
+            <div class="analysis-dimensions">
+                <div class="dimension-item">
+                    <div class="dimension-label">📊 相关性</div>
+                    <div>科技</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">📈 影响程度</div>
+                    <div>低-对行业影响有限</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">⏰ 时效性</div>
+                    <div>新鲜-最近发布</div>
+                </div>
+                <div class="dimension-item">
+                    <div class="dimension-label">✅ 确定性</div>
+                    <div>高-来自权威媒体报道</div>
+                </div>
+                <div class="dimension-item" style="grid-column: span 2;">
+                    <div class="dimension-label">🎯 机会类型</div>
+                    <div>不适用</div>
+                </div>
+            </div>
+                </div>
+                
+                <span class="keyword">中国空间站</span><span class="keyword">小鼠</span><span class="keyword">太空实验</span><span class="keyword">生物研究</span>
+            </article>
+
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="disclaimer">
+            ⚠️ 免责声明：本简报内容仅供参考，不构成任何投资建议。基金投资有风险，请谨慎决策。
+        </div>
+        <p>由 AI 自动生成 · 每日 10:00 更新</p>
+    </footer>
+    
+    <!-- 弹窗 -->
+    <div class="modal-overlay" id="newsModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">新闻标题</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modalIframe" src="" title="新闻原文"></iframe>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-source" id="modalSource">来源: </div>
+                <button class="btn-open-original" id="modalBtn" onclick="openOriginal()">🔗 在新窗口打开</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const newsData = [{"title": "揭秘长城智驾自研：元戎、Momenta「抬轿」与千人自研团队", "link": "https://www.leiphone.com/category/transportation/3dHN6bjpaogtpTlp.html", "source": "雷峰网", "original_title": ""}, {"title": "克莱德在应用商店中攀升至第一，继五角大楼争议之后", "link": "https://techcrunch.com/2026/03/01/anthropics-claude-rises-to-no-2-in-the-app-store-following-pentagon-dispute/", "source": "TechCrunch", "original_title": "Anthropic’s Claude rises to No. 1 in the App Store following Pentagon dispute"}, {"title": "仅补贴3万元？曝36岁程序员复工当晚猝死，米哈游回应；哈啰招聘运营要求「98后，能力强放宽至97后」，客服回应；多家车企回应语音关大灯", "link": "https://www.leiphone.com/category/zaobao/C4kW7EtUqrcMQkUd.html", "source": "雷峰网", "original_title": ""}, {"title": "阿里巴巴AI品牌统一为千问", "link": "https://www.leiphone.com/category/industrynews/LfXLlB2VZCGxBk6W.html", "source": "雷峰网", "original_title": ""}, {"title": "新智驾独家｜蔚来芯片子公司完成首轮融资，投后估值近百亿元", "link": "https://www.leiphone.com/category/transportation/6TEQgG94ZVlTc9Os.html", "source": "雷峰网", "original_title": ""}, {"title": "登上马年春晚的银河通用机器人融资 25 亿元，估值领跑具身智能", "link": "https://www.ithome.com/0/925/008.htm", "source": "IT之家", "original_title": ""}, {"title": "小米机器人进厂“实习”，在自攻螺母上件工站可连续自主运行 3 小时", "link": "https://www.ithome.com/0/925/002.htm", "source": "IT之家", "original_title": ""}, {"title": "比亚迪：将于 3 月 5 日召开“颠覆性”技术发布会", "link": "https://www.ithome.com/0/925/001.htm", "source": "IT之家", "original_title": ""}, {"title": "独家 | 星海图孵化首席科学家许华哲创业，新公司已获得星海图投资", "link": "https://www.leiphone.com/category/robot/vZ1kKdmdP0efTsSX.html", "source": "雷峰网", "original_title": ""}, {"title": "八位AI算力CEO：2026，算力旧规则正在作废", "link": "https://www.leiphone.com/category/chips/YDGUXz9W02bqbbiJ.html", "source": "雷峰网", "original_title": ""}, {"title": "对话NOOK创始人许清岚：AI 从「做事」走向「规划人生」", "link": "https://www.leiphone.com/category/industrynews/4O3FCt45JftvVrvX.html", "source": "雷峰网", "original_title": ""}, {"title": "对话冯雷：从 AI 播客，到真人感 Agent", "link": "https://www.leiphone.com/category/industrynews/H4d9CfqcIDT7YNxe.html", "source": "雷峰网", "original_title": ""}, {"title": "Nano Banana 2 来了：价格便宜速度快，从炫技回到实用", "link": "https://www.leiphone.com/category/industrynews/lkmfiwGdp5l4QFVx.html", "source": "雷峰网", "original_title": ""}, {"title": "国轩高科：2GWh 全固态电池量产线设计工作已基本完成", "link": "https://www.ithome.com/0/925/003.htm", "source": "IT之家", "original_title": ""}, {"title": "硅谷投资人比尔 · 格利：不热爱自己工作的人最可能因 AI 失去工作", "link": "https://www.ithome.com/0/924/995.htm", "source": "IT之家", "original_title": ""}, {"title": "掌阅 iReader Tango 2 Pro 墨水屏阅读器发布：可插 SIM 卡，50 帧高刷", "link": "https://www.ithome.com/0/924/993.htm", "source": "IT之家", "original_title": ""}, {"title": "国产大飞机 C919 入列南航满十架，通达 17 个航点城市", "link": "https://www.ithome.com/0/924/992.htm", "source": "IT之家", "original_title": ""}, {"title": "影石337调查完胜！美国ITC终裁：GoPro六项指控均不成立", "link": "https://www.leiphone.com/category/industrynews/C3xIv9ziFJ3Qkeqr.html", "source": "雷峰网", "original_title": ""}, {"title": "对话原力灵机范浩强：评判机器人好坏，只有一个指标", "link": "https://www.leiphone.com/category/robot/sN3CJJLdL8Oj8afj.html", "source": "雷峰网", "original_title": ""}, {"title": "扬州爱奇艺乐园新年开门红 龚宇预计单日峰值收入还有1-2倍增长空间", "link": "https://www.leiphone.com/category/industrynews/zQqvojc5bk0p17BL.html", "source": "雷峰网", "original_title": ""}, {"title": "万人大厂因AI一夜爆裁4000人，「留下的压力也很大」；网友晒椰树广告图被指低俗：「女员工胸这么大」引争议；SpaceX最早3月秘密申请IPO", "link": "https://www.leiphone.com/category/zaobao/S0M0F81kA1NsOqdA.html", "source": "雷峰网", "original_title": ""}, {"title": "OPPO 陈希预告：Find N6 折叠屏手机窗口交互体验将再次升级", "link": "https://www.ithome.com/0/925/006.htm", "source": "IT之家", "original_title": ""}, {"title": "微软 Win11 隐藏新特性：第三方截图工具也能用 Print Screen 键了", "link": "https://www.ithome.com/0/925/005.htm", "source": "IT之家", "original_title": ""}, {"title": "云厂情报大览：宇宙云销售岗备受追捧，甚至还吸引演员加入；A云电销团队大调整；B云效仿友商，给代理商送车", "link": "https://www.leiphone.com/category/industrynews/TS9kwxvHBiZW7jBw.html", "source": "雷峰网", "original_title": ""}, {"title": "萝卜快跑：已临时暂停在阿联酋境内的无人驾驶测试及商业化运营服务", "link": "https://www.ithome.com/0/925/000.htm", "source": "IT之家", "original_title": ""}, {"title": "独家丨前阿里高管任庚已经从新奥离职", "link": "https://www.leiphone.com/category/industrynews/VreIIYzeoqE63bsi.html", "source": "雷峰网", "original_title": ""}, {"title": "伊朗轰炸相关投注交易额达5.29亿美元", "link": "https://techcrunch.com/2026/03/01/polymarket-saw-529m-traded-on-bets-tied-to-bombing-of-iran/", "source": "TechCrunch", "original_title": "Polymarket saw $529M traded on bets tied to bombing of Iran"}, {"title": "2026年我尝试过的最佳激光打印机：兄弟、惠普等", "link": "https://www.wired.com/gallery/best-laser-printers/", "source": "WIRED", "original_title": "Best Laser Printers I've Tried (2026): Brother, HP, and More"}, {"title": "微软官方 Discord 频道封禁网友自造词“Microslop”未果，竟选择大面积“禁言”", "link": "https://www.ithome.com/0/924/997.htm", "source": "IT之家", "original_title": ""}, {"title": "美团回应中东局势影响：必要时特定区域将暂时限制或停止服务", "link": "https://www.ithome.com/0/924/999.htm", "source": "IT之家", "original_title": ""}, {"title": "海信 Hi Reader 2026 特别纪念版墨水屏阅读器官宣，配置不变重启发售", "link": "https://www.ithome.com/0/924/998.htm", "source": "IT之家", "original_title": ""}, {"title": "中国空间站“太空小鼠”回地球后，顺利产下第三窝鼠宝宝", "link": "https://www.ithome.com/0/924/996.htm", "source": "IT之家", "original_title": ""}];
+        
+        let currentIndex = 0;
+        
+        function filterNews(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.cat === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            document.querySelectorAll('.news-card').forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    if (card.dataset.category === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+        
+        function openModal(index) {
+            currentIndex = index;
+            const news = newsData[index];
+            if (!news || !news.link) return;
+            
+            document.getElementById('modalTitle').textContent = news.title || '新闻详情';
+            document.getElementById('modalIframe').src = news.link;
+            document.getElementById('modalSource').innerHTML = news.source ? `来源: <a href="${news.link}" target="_blank">${news.source}</a>` : '';
+            document.getElementById('modalBtn').onclick = function() { openOriginal(); };
+            document.getElementById('newsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('newsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function openOriginal() {
+            const news = newsData[currentIndex];
+            if (news && news.link) {
+                window.open(news.link, '_blank');
+            }
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
