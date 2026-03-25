@@ -1,5 +1,11 @@
 [
     {
+        "date": "2026-03-25",
+        "htmlUrl": "./reports/news_report_2026-03-25.html",
+        "mdUrl": "./reports/news_report_2026-03-25.md",
+        "jsonUrl": "./reports/news_report_2026-03-25.json"
+    },
+    {
         "date": "2026-03-17",
         "htmlUrl": "./reports/news_report_2026-03-17.html",
         "mdUrl": "./reports/news_report_2026-03-17.md",
